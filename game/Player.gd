@@ -3,10 +3,31 @@ extends KinematicBody2D
 const ACCELERATION = 1024
 const MAX_SPEED = 2.5
 const FRICTION = 0.25
+const CAMERA_OFFSET_WEIGHT = 0.2
+const CAMERA_LEAD = 5.0
 
 var motion = Vector2.ZERO
+onready var camera = $Camera2D
+onready var camera_target = $CameraTarget
 
 func _physics_process(delta):
+	if Input.is_action_just_pressed("exit"):
+		get_tree().quit()
+		
+	point_at_mouse()
+	move(delta)
+	move_camera()
+
+func get_input_vector():
+	var x_input = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+	var y_input = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
+	return Vector2(x_input, y_input)
+
+func point_at_mouse():
+	var angle = get_angle_to(get_global_mouse_position())
+	rotation += angle
+
+func move(delta):
 	var input_vector = get_input_vector()
 
 	if input_vector.x == 0:
@@ -25,7 +46,8 @@ func _physics_process(delta):
 
 	var _collision = move_and_collide(motion)
 
-func get_input_vector():
-	var x_input = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-	var y_input = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
-	return Vector2(x_input, y_input)
+func move_camera():
+	camera_target.rotate(-rotation)
+	var rotated_motion = motion.rotated(-rotation)
+	camera_target.position.x = lerp(camera_target.position.x, rotated_motion.x * CAMERA_LEAD, CAMERA_OFFSET_WEIGHT)
+	camera_target.position.y = lerp(camera_target.position.y, rotated_motion.y * CAMERA_LEAD, CAMERA_OFFSET_WEIGHT)
