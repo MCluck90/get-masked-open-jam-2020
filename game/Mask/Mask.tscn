@@ -8,7 +8,7 @@ extents = Vector2( 3.42501, 6.36198 )
 
 [node name="Mask" type="Area2D"]
 collision_layer = 2
-collision_mask = 0
+collision_mask = 2
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -18,3 +18,4 @@ hframes = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 10.0205, 0.0496063 )
 shape = SubResource( 1 )
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

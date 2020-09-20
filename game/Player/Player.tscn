@@ -30,3 +30,7 @@ position = Vector2( 19.2881, -3.4687 )
 
 [node name="Camera2D" type="Camera2D" parent="CameraTarget"]
 current = true
+
+[node name="ShotTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true

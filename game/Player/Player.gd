@@ -9,9 +9,9 @@ const CAMERA_OFFSET_WEIGHT = 0.2
 const CAMERA_LEAD = 5.0
 
 var motion = Vector2.ZERO
-onready var camera = $Camera2D
 onready var camera_target = $CameraTarget
 onready var fire_point = $FirePoint
+onready var shot_timer = $ShotTimer
 
 func _physics_process(delta):
 	if Input.is_action_just_pressed("exit"):
@@ -20,7 +20,7 @@ func _physics_process(delta):
 	point_at_mouse()
 	move(delta)
 	move_camera()
-	if Input.is_action_just_pressed("shoot"):
+	if Input.is_action_pressed("shoot") && shot_timer.time_left == 0:
 		shoot()
 
 func get_input_vector():
@@ -62,4 +62,5 @@ func shoot():
 	var mask = Mask.instance()
 	mask.transform = transform
 	get_tree().root.add_child(mask)
+	shot_timer.start()
 

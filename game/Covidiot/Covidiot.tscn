@@ -45,6 +45,7 @@ scale_amount_curve = SubResource( 3 )
 polygon = PoolVector2Array( 0, -4, 0, 4, 16, 16, 16, -16 )
 
 [node name="Cough" type="Area2D" parent="."]
+visible = false
 
 [node name="Particles" type="CPUParticles2D" parent="Cough"]
 position = Vector2( 8, 0 )
@@ -69,4 +70,5 @@ autostart = true
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 1, 1 )
 texture = ExtResource( 1 )
+hframes = 2
 [connection signal="timeout" from="Cough/Timer" to="." method="_on_CoughTimer_timeout"]
