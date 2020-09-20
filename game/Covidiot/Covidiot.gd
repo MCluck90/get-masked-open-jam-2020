@@ -22,6 +22,9 @@ func _ready():
 	$Breathing.visible = false
 	cough_particles.one_shot = true
 
+	# We need unique materials for animating purposes
+	$Sprite.material = $Sprite.material.duplicate()
+
 	yield(get_tree().create_timer(rng.randf() * 3.0), "timeout")
 	# Technically the player can mask this person before the timeout completes
 	# which means this will be null
@@ -63,6 +66,10 @@ func on_mask_hit():
 	breathing_collider.queue_free()
 	cough_collider.queue_free()
 	is_wearing_a_mask = true
+
+	var animation_player: AnimationPlayer = $AnimationPlayer
+	if animation_player:
+		animation_player.play("masked")
 
 var cough_collisions = []
 func _on_Cough_body_entered(body):
