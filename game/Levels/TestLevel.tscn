@@ -13,34 +13,28 @@ position = Vector2( 88.6696, 69.5374 )
 position = Vector2( 271.527, 72.5442 )
 
 [node name="Chaser2" parent="." index="4" instance=ExtResource( 3 )]
-position = Vector2( 250.265, 154.282 )
+position = Vector2( 277.196, 180.11 )
 
 [node name="Chaser3" parent="." index="5" instance=ExtResource( 3 )]
-position = Vector2( 99.5473, 184.677 )
+position = Vector2( 173.41, 228.144 )
 
 [node name="Chaser4" parent="." index="6" instance=ExtResource( 3 )]
-position = Vector2( 145.849, 27.6595 )
+position = Vector2( 185.694, 59.1575 )
 
 [node name="Chaser5" parent="." index="7" instance=ExtResource( 3 )]
-position = Vector2( 242.706, 12.8554 )
+position = Vector2( 155.299, 32.5417 )
 
 [node name="Chaser6" parent="." index="8" instance=ExtResource( 3 )]
-position = Vector2( 358.619, 108.767 )
+position = Vector2( 281.606, 121.524 )
 
 [node name="Chaser7" parent="." index="9" instance=ExtResource( 3 )]
-position = Vector2( 349.957, 166.251 )
+position = Vector2( 333.893, 202.474 )
 
 [node name="Chaser8" parent="." index="10" instance=ExtResource( 3 )]
-position = Vector2( 203.333, 63.5673 )
+position = Vector2( 313.104, 58.0551 )
 
 [node name="Chaser9" parent="." index="11" instance=ExtResource( 3 )]
-position = Vector2( 40.016, 17.4226 )
+position = Vector2( 257.195, 28.9194 )
 
 [node name="Chaser10" parent="." index="12" instance=ExtResource( 3 )]
-position = Vector2( -4.23869, 59.315 )
-
-[node name="Chaser11" parent="." index="13" instance=ExtResource( 3 )]
-position = Vector2( -26.6023, 124.988 )
-
-[node name="Chaser12" parent="." index="14" instance=ExtResource( 3 )]
-position = Vector2( 23.3221, 202.474 )
+position = Vector2( 220.185, 25.7696 )
