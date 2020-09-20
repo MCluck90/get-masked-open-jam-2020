@@ -3,11 +3,9 @@ extends KinematicBody2D
 export (PackedScene) var Mask
 export (Vector2) var camera_limit
 
-const ACCELERATION = 1024
+const ACCELERATION = 50
 const MAX_SPEED = 250
-const FRICTION = 0.25
-const CAMERA_OFFSET_WEIGHT = 0.05
-const CAMERA_LEAD = 0.1
+const FRICTION = 0.1
 
 var motion = Vector2.ZERO
 var resolution = Vector2(
@@ -52,6 +50,7 @@ func move(_delta):
 		var y_acceleration = ACCELERATION
 		motion.x += input_vector.x * x_acceleration
 		motion.y += input_vector.y * y_acceleration
+
 
 	# TODO: Make sure diagonals aren't faster
 	motion.x = clamp(motion.x, -MAX_SPEED, MAX_SPEED)

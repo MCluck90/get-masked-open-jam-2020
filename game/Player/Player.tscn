@@ -28,7 +28,9 @@ visible = false
 position = Vector2( 19.2881, -3.4687 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
+visible = false
 current = true
+zoom = Vector2( 1.4, 1.4 )
 limit_left = 0
 limit_top = 0
 
