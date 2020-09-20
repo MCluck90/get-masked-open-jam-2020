@@ -3,10 +3,10 @@ extends KinematicBody2D
 export (PackedScene) var Mask
 
 const ACCELERATION = 1024
-const MAX_SPEED = 2.5
+const MAX_SPEED = 250
 const FRICTION = 0.25
-const CAMERA_OFFSET_WEIGHT = 0.2
-const CAMERA_LEAD = 5.0
+const CAMERA_OFFSET_WEIGHT = 0.05
+const CAMERA_LEAD = 0.1
 
 var motion = Vector2.ZERO
 onready var camera_target = $CameraTarget
@@ -32,7 +32,7 @@ func point_at_mouse():
 	var angle = get_angle_to(get_global_mouse_position())
 	rotation += angle
 
-func move(delta):
+func move(_delta):
 	var input_vector = get_input_vector()
 
 	if input_vector.x == 0:
@@ -43,14 +43,14 @@ func move(delta):
 	if input_vector.x != 0 || input_vector.y != 0:
 		var x_acceleration = ACCELERATION
 		var y_acceleration = ACCELERATION
-		motion.x += input_vector.x * x_acceleration * delta
-		motion.y += input_vector.y * y_acceleration * delta
+		motion.x += input_vector.x * x_acceleration
+		motion.y += input_vector.y * y_acceleration
 
 	# TODO: Make sure diagonals aren't faster
 	motion.x = clamp(motion.x, -MAX_SPEED, MAX_SPEED)
 	motion.y = clamp(motion.y, -MAX_SPEED, MAX_SPEED)
 
-	var _collision = move_and_collide(motion)
+	motion = move_and_slide(motion)
 
 func move_camera():
 	camera_target.rotate(-rotation)

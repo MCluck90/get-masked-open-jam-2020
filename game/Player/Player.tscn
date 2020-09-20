@@ -4,8 +4,9 @@
 [ext_resource path="res://assets/player/player.png" type="Texture" id=2]
 [ext_resource path="res://Mask/Mask.tscn" type="PackedScene" id=3]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 8.59348, 16.97 )
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 7.87493
+height = 18.1008
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -17,8 +18,7 @@ texture = ExtResource( 2 )
 hframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2( 1.99939, -0.456001 )
+position = Vector2( 1.84172, -1.87502 )
 rotation = -1.5708
 shape = SubResource( 1 )
 
