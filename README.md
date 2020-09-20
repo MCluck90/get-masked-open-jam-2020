@@ -9,4 +9,5 @@ Created for [Open Jam 2020](https://itch.io/jam/open-jam-2020)
 
 ## Controls
 
-WASD to move
+- WASD to move
+- Click to shoot
