@@ -54,7 +54,7 @@ func move(_delta):
 	for i in range(get_slide_count()):
 		var collision = get_slide_collision(i)
 		if collision && collision.collider.has_method("move_and_slide"):
-			collision.collider.move_and_slide(input_vector * 100.0)
+			collision.collider.move_and_slide(position.direction_to(collision.collider.position) * 100.0)
 
 func move_camera():
 	camera_target.rotate(-rotation)
