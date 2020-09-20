@@ -31,13 +31,12 @@ func _ready():
 	breathing_particles.emitting = true
 
 func _process(_delta):
-	breathing_collider.disabled = !breathing_particles.emitting
-	cough_collider.disabled = !cough_particles.emitting
-
 	if is_wearing_a_mask:
 		$Breathing.visible = breathing_particles.emitting
 		$Cough.visible = cough_particles.emitting
-
+	else:
+		breathing_collider.disabled = !breathing_particles.emitting
+		cough_collider.disabled = !cough_particles.emitting
 
 func _on_CoughTimer_timeout():
 	if cough_particles.emitting:
@@ -53,3 +52,20 @@ func on_mask_hit():
 
 	sprite.frame = 1
 	is_wearing_a_mask = true
+	breathing_collider.queue_free()
+	cough_collider.queue_free()
+
+var cough_collisions = []
+func _on_Cough_body_entered(body):
+	var id = body.get_instance_id()
+	if !cough_collisions.has(id):
+		cough_collisions.push_back(id)
+
+	$Cough.visible = false
+
+func _on_Cough_body_exited(body):
+	var id = body.get_instance_id()
+	var index = cough_collisions.find(id)
+	if index > -1:
+		cough_collisions.remove(index)
+	$Cough.visible = len(cough_collisions) > 0
