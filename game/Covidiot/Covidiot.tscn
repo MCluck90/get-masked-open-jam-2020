@@ -65,7 +65,6 @@ scale_amount_curve = SubResource( 2 )
 polygon = PoolVector2Array( 0, -4, 0, 4, 96, 16, 96, -16 )
 
 [node name="Timer" type="Timer" parent="Cough"]
-autostart = true
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 1, 1 )

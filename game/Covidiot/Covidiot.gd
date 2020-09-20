@@ -19,10 +19,14 @@ func _ready():
 	rng.randomize()
 	$Cough/Timer.wait_time = cough_timeout
 	$Cough.visible = false
-	cough_particles.visible = true
+	$Breathing.visible = false
 	cough_particles.one_shot = true
 
+	yield(get_tree().create_timer(rng.randf() * 3.0), "timeout")
+	$Cough/Timer.start()
 	$Breathing.visible = true
+	breathing_particles.lifetime *= rng.randf_range(0.9, 1.1)
+	cough_particles.visible = true
 	breathing_particles.visible = true
 	breathing_particles.emitting = true
 
