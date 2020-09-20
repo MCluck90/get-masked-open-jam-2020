@@ -27,6 +27,7 @@ radius = 165.841
 [node name="Chaser" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 cough_timeout = 1.0
+run_speed = 100.0
 
 [node name="Sprite" parent="." index="3"]
 material = SubResource( 7 )

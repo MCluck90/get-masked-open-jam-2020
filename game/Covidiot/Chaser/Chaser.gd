@@ -1,8 +1,12 @@
 extends "res://Covidiot/Covidiot.gd"
 
+const ACCELERATION = 40
+const FRICTION = 0.1
+
 var player: KinematicBody2D = null
 var is_looking_for_player = false
 var is_chasing = false
+var speed = 0
 
 export(float) var run_speed = 100
 
@@ -19,7 +23,6 @@ func _process(_delta):
 		find_player()
 		return
 
-
 	if is_looking_for_player:
 		var angle = get_angle_to(player.position)
 		rotation += angle
@@ -33,8 +36,15 @@ func _physics_process(_delta):
 		return
 
 	if is_chasing:
-		var velocity = Vector2.RIGHT.rotated(rotation) * run_speed
-		var _x = move_and_slide(velocity)
+		chase_player()
+
+func chase_player():
+	speed += ACCELERATION
+	speed = clamp(speed, 0, run_speed)
+	var velocity = Vector2.RIGHT.rotated(rotation) * speed
+	var new_velocity = move_and_slide(velocity)
+	if new_velocity != velocity:
+		speed = 0
 
 func find_player():
 	player = find_node_by_name(get_tree().get_root(), "Player")
