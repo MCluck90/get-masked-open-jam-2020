@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 export (PackedScene) var Mask
+export (Vector2) var camera_limit
 
 const ACCELERATION = 1024
 const MAX_SPEED = 250
@@ -9,9 +10,16 @@ const CAMERA_OFFSET_WEIGHT = 0.05
 const CAMERA_LEAD = 0.1
 
 var motion = Vector2.ZERO
-onready var camera_target = $CameraTarget
+var resolution = Vector2(
+	ProjectSettings.get_setting("display/window/size/width"),
+	ProjectSettings.get_setting("display/window/size/height")
+)
 onready var fire_point = $FirePoint
 onready var shot_timer = $ShotTimer
+
+func _ready():
+	$Camera2D.limit_right = camera_limit.x * 16
+	$Camera2D.limit_bottom = camera_limit.y * 16
 
 func _physics_process(delta):
 	if Input.is_action_just_pressed("exit"):
@@ -19,7 +27,6 @@ func _physics_process(delta):
 		
 	point_at_mouse()
 	move(delta)
-	move_camera()
 	if Input.is_action_pressed("shoot") && shot_timer.time_left == 0:
 		shoot()
 
@@ -55,12 +62,6 @@ func move(_delta):
 		var collision = get_slide_collision(i)
 		if collision && collision.collider.has_method("move_and_slide"):
 			collision.collider.move_and_slide(position.direction_to(collision.collider.position) * 100.0)
-
-func move_camera():
-	camera_target.rotate(-rotation)
-	var rotated_motion = motion.rotated(-rotation)
-	camera_target.position.x = lerp(camera_target.position.x, rotated_motion.x * CAMERA_LEAD, CAMERA_OFFSET_WEIGHT)
-	camera_target.position.y = lerp(camera_target.position.y, rotated_motion.y * CAMERA_LEAD, CAMERA_OFFSET_WEIGHT)
 
 func shoot():
 	var mask = Mask.instance()

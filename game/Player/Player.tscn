@@ -27,10 +27,10 @@ shape = SubResource( 1 )
 visible = false
 position = Vector2( 19.2881, -3.4687 )
 
-[node name="CameraTarget" type="Node2D" parent="."]
-
-[node name="Camera2D" type="Camera2D" parent="CameraTarget"]
+[node name="Camera2D" type="Camera2D" parent="."]
 current = true
+limit_left = 0
+limit_top = 0
 
 [node name="ShotTimer" type="Timer" parent="."]
 wait_time = 0.5

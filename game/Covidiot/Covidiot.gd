@@ -23,6 +23,11 @@ func _ready():
 	cough_particles.one_shot = true
 
 	yield(get_tree().create_timer(rng.randf() * 3.0), "timeout")
+	# Technically the player can mask this person before the timeout completes
+	# which means this will be null
+	if !$Cough/Timer:
+		return
+
 	$Cough/Timer.start()
 	$Breathing.visible = true
 	breathing_particles.lifetime *= rng.randf_range(0.9, 1.1)
