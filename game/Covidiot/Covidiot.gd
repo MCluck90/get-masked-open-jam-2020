@@ -47,13 +47,17 @@ func _on_CoughTimer_timeout():
 		cough_particles.restart()
 
 func on_mask_hit():
+	if is_wearing_a_mask:
+		return
+
 	breathing_particles.one_shot = true
-	cough_timer.stop()
+	cough_particles.one_shot = true
+	cough_timer.queue_free()
 
 	sprite.frame = 1
-	is_wearing_a_mask = true
 	breathing_collider.queue_free()
 	cough_collider.queue_free()
+	is_wearing_a_mask = true
 
 var cough_collisions = []
 func _on_Cough_body_entered(body):
