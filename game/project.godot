@@ -89,6 +89,10 @@ shoot={
  ]
 }
 
+[layer_names]
+
+2d_physics/layer_1.web=""
+
 [rendering]
 
 quality/driver/driver_name="GLES2"
