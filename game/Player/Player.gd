@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+export (PackedScene) var Mask
+
 const ACCELERATION = 1024
 const MAX_SPEED = 2.5
 const FRICTION = 0.25
@@ -9,6 +11,7 @@ const CAMERA_LEAD = 5.0
 var motion = Vector2.ZERO
 onready var camera = $Camera2D
 onready var camera_target = $CameraTarget
+onready var fire_point = $FirePoint
 
 func _physics_process(delta):
 	if Input.is_action_just_pressed("exit"):
@@ -17,6 +20,8 @@ func _physics_process(delta):
 	point_at_mouse()
 	move(delta)
 	move_camera()
+	if Input.is_action_just_pressed("shoot"):
+		shoot()
 
 func get_input_vector():
 	var x_input = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
@@ -41,6 +46,7 @@ func move(delta):
 		motion.x += input_vector.x * x_acceleration * delta
 		motion.y += input_vector.y * y_acceleration * delta
 
+	# TODO: Make sure diagonals aren't faster
 	motion.x = clamp(motion.x, -MAX_SPEED, MAX_SPEED)
 	motion.y = clamp(motion.y, -MAX_SPEED, MAX_SPEED)
 
@@ -51,3 +57,9 @@ func move_camera():
 	var rotated_motion = motion.rotated(-rotation)
 	camera_target.position.x = lerp(camera_target.position.x, rotated_motion.x * CAMERA_LEAD, CAMERA_OFFSET_WEIGHT)
 	camera_target.position.y = lerp(camera_target.position.y, rotated_motion.y * CAMERA_LEAD, CAMERA_OFFSET_WEIGHT)
+
+func shoot():
+	var mask = Mask.instance()
+	mask.transform = transform
+	get_tree().root.add_child(mask)
+
