@@ -71,6 +71,9 @@ func on_mask_hit():
 	if animation_player:
 		animation_player.play("masked")
 
+	yield(get_tree().create_timer(5.0), "timeout")
+	queue_free()
+
 var cough_collisions = []
 func _on_Cough_body_entered(body):
 	var id = body.get_instance_id()
